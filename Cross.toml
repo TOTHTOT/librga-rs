@@ -1,0 +1,18 @@
+[target.aarch64-unknown-linux-gnu]
+image = "ghcr.io/cross-rs/aarch64-unknown-linux-gnu:edge"
+dockerfile = "Dockerfile.cross"
+passthrough = ["http_proxy", "https_proxy", "all_proxy"]
+
+[target.aarch64-unknown-linux-gnu.env]
+PKG_CONFIG_ALLOW_CROSS = "1"
+PKG_CONFIG_PATH = "/usr/lib/aarch64-linux-gnu/pkgconfig"
+RUSTFLAGS = "-L /project/libs/Linux/gcc-aarch64"
+
+[target.arm-unknown-linux-gnueabihf]
+image = "ghcr.io/cross-rs/arm-unknown-linux-gnueabihf:edge"
+dockerfile = "Dockerfile.cross.arm"
+
+[target.arm-unknown-linux-gnueabihf.env]
+PKG_CONFIG_ALLOW_CROSS = "1"
+PKG_CONFIG_PATH = "/usr/lib/arm-linux-gnueabihf/pkgconfig"
+RUSTFLAGS = "-L /project/libs/Linux/gcc-armhf"

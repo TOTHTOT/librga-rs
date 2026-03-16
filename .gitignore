@@ -1,0 +1,29 @@
+# Rust build artifacts
+/target
+Cargo.lock
+
+# Bindgen generated files (these are generated at build time)
+**/bindings.rs
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test outputs
+*.png
+*.jpg
+*.yuv
+*.raw
+
+# Deployment artifacts
+/deploy
+
+# Backup files
+*.bak

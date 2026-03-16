@@ -1,0 +1,45 @@
+[package]
+name = "librga"
+version = "0.1.0"
+edition = "2021"
+authors = ["Your Name <you@example.com>"]
+description = "Rust FFI bindings for Rockchip RGA (2D Graphics Accelerator)"
+license = "Apache-2.0"
+repository = "https://github.com/yourusername/librga-rs"
+keywords = ["rockchip", "rga", "graphics", "embedded", "ffi"]
+categories = ["external-ffi-bindings", "hardware-support", "multimedia::images"]
+
+[dependencies]
+bitflags = "2.4"
+thiserror = "1.0"
+libc = "0.2"
+
+[dev-dependencies]
+anyhow = "1.0"
+
+[build-dependencies]
+bindgen = "0.69"
+
+[[example]]
+name = "basic_resize"
+path = "examples/basic_resize.rs"
+
+[[example]]
+name = "format_convert"
+path = "examples/format_convert.rs"
+
+[[example]]
+name = "blend_demo"
+path = "examples/blend_demo.rs"
+
+[[example]]
+name = "benchmark"
+path = "examples/benchmark.rs"
+
+[[bin]]
+name = "test_runner"
+path = "src/test_runner.rs"
+
+[profile.release]
+opt-level = 3
+lto = true

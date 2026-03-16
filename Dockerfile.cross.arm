@@ -1,0 +1,18 @@
+FROM ghcr.io/cross-rs/arm-unknown-linux-gnueabihf:edge
+
+# Install dependencies
+RUN dpkg --add-architecture armhf && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+        libdrm-dev:armhf \
+        pkg-config
+
+# Copy librga library to the image
+COPY libs/Linux/gcc-armhf/librga.so /usr/lib/arm-linux-gnueabihf/
+COPY libs/Linux/gcc-armhf/librga.a /usr/lib/arm-linux-gnueabihf/
+COPY include/ /usr/local/include/rga/
+
+# Update library cache
+RUN ldconfig
+
+WORKDIR /project
