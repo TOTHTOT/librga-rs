@@ -12,8 +12,8 @@
 //! testing but is not optimal for production use.
 
 use image::{DynamicImage, ImageBuffer, ImageFormat, Rgba};
-use librga::{query, rotate, PixelFormat, RgaBuffer};
 use librga::usage::Rotation;
+use librga::{query, rotate, PixelFormat, RgaBuffer};
 use std::time::Instant;
 
 /// Check if rotation swaps width and height dimensions
@@ -60,18 +60,14 @@ fn main() {
     let src_data = rgba.into_raw();
 
     // 3. Create source RgaBuffer (safe API)
-    let (src_buf, _src_data) = match RgaBuffer::from_vec(
-        src_data,
-        src_width,
-        src_height,
-        PixelFormat::Rgba8888,
-    ) {
-        Ok(b) => b,
-        Err(e) => {
-            println!("Failed to create src buffer: {:?}", e);
-            return;
-        }
-    };
+    let (src_buf, _src_data) =
+        match RgaBuffer::from_vec(src_data, src_width, src_height, PixelFormat::Rgba8888) {
+            Ok(b) => b,
+            Err(e) => {
+                println!("Failed to create src buffer: {:?}", e);
+                return;
+            }
+        };
 
     // Keep src_data alive - it will be dropped after src_buf
 
@@ -95,18 +91,14 @@ fn main() {
 
         // 4. Allocate destination memory and create buffer (safe API)
         let dst_data = vec![0u8; dst_size];
-        let (mut dst_buf, dst_data_owned) = match RgaBuffer::from_vec_mut(
-            dst_data,
-            dst_width,
-            dst_height,
-            PixelFormat::Rgba8888,
-        ) {
-            Ok(b) => b,
-            Err(e) => {
-                println!("Failed to create dst buffer: {:?}", e);
-                return;
-            }
-        };
+        let (mut dst_buf, dst_data_owned) =
+            match RgaBuffer::from_vec_mut(dst_data, dst_width, dst_height, PixelFormat::Rgba8888) {
+                Ok(b) => b,
+                Err(e) => {
+                    println!("Failed to create dst buffer: {:?}", e);
+                    return;
+                }
+            };
 
         // 5. Execute RGA rotation with timing
         println!("Performing RGA rotation...");
@@ -130,8 +122,7 @@ fn main() {
         let mut total_time = std::time::Duration::ZERO;
         for i in 0..10 {
             let start = Instant::now();
-            rotate(&src_buf, &mut dst_buf, *rotation, true)
-                .expect("Rotation failed");
+            rotate(&src_buf, &mut dst_buf, *rotation, true).expect("Rotation failed");
             let elapsed = start.elapsed();
             total_time += elapsed;
             println!("  Run {}: {:?}", i + 1, elapsed);

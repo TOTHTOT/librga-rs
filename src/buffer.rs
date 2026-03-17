@@ -131,9 +131,7 @@ impl RgaBuffer {
         let mut data = data;
         let addr = data.as_mut_ptr() as *mut c_void;
 
-        let buffer = unsafe {
-            Self::from_virtual_addr_unchecked(addr, width, height, format)?
-        };
+        let buffer = unsafe { Self::from_virtual_addr_unchecked(addr, width, height, format)? };
 
         Ok((buffer, data))
     }
@@ -151,9 +149,7 @@ impl RgaBuffer {
         let mut data = data;
         let addr = data.as_mut_ptr() as *mut c_void;
 
-        let buffer = unsafe {
-            Self::from_virtual_addr_unchecked(addr, width, height, format)?
-        };
+        let buffer = unsafe { Self::from_virtual_addr_unchecked(addr, width, height, format)? };
 
         Ok((buffer, data))
     }
@@ -469,9 +465,7 @@ impl RgaBufferBuilder {
         let mut data = data;
         let addr = data.as_mut_ptr() as *mut c_void;
 
-        let buffer = unsafe {
-            self.build_from_virtual_addr(addr)?
-        };
+        let buffer = unsafe { self.build_from_virtual_addr(addr)? };
 
         Ok((buffer, data))
     }

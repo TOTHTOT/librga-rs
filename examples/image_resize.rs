@@ -46,18 +46,14 @@ fn main() {
 
     // 3. Create source RgaBuffer (safe API)
     // Note: src_data is kept alive by being in the tuple with the buffer
-    let (src_buf, _src_data) = match RgaBuffer::from_vec(
-        src_data,
-        src_width,
-        src_height,
-        PixelFormat::Rgba8888,
-    ) {
-        Ok(b) => b,
-        Err(e) => {
-            println!("Failed to create src buffer: {:?}", e);
-            return;
-        }
-    };
+    let (src_buf, _src_data) =
+        match RgaBuffer::from_vec(src_data, src_width, src_height, PixelFormat::Rgba8888) {
+            Ok(b) => b,
+            Err(e) => {
+                println!("Failed to create src buffer: {:?}", e);
+                return;
+            }
+        };
 
     // Keep src_data alive - it will be dropped after src_buf
 
@@ -70,18 +66,14 @@ fn main() {
 
     // 5. Allocate destination memory and create buffer (safe API)
     let dst_data = vec![0u8; dst_size];
-    let (mut dst_buf, dst_data) = match RgaBuffer::from_vec_mut(
-        dst_data,
-        dst_width,
-        dst_height,
-        PixelFormat::Rgba8888,
-    ) {
-        Ok(b) => b,
-        Err(e) => {
-            println!("Failed to create dst buffer: {:?}", e);
-            return;
-        }
-    };
+    let (mut dst_buf, dst_data) =
+        match RgaBuffer::from_vec_mut(dst_data, dst_width, dst_height, PixelFormat::Rgba8888) {
+            Ok(b) => b,
+            Err(e) => {
+                println!("Failed to create dst buffer: {:?}", e);
+                return;
+            }
+        };
 
     // 6. Execute RGA resize with timing
     println!("Performing RGA resize...");
@@ -125,17 +117,14 @@ fn main() {
     println!("Average: {:?}", total_time / 10);
 
     // 7. Save result as image
-    let result = match ImageBuffer::<Rgba<u8>, _>::from_raw(
-        dst_width as u32,
-        dst_height as u32,
-        dst_data,
-    ) {
-        Some(r) => r,
-        None => {
-            println!("Failed to create image from buffer");
-            return;
-        }
-    };
+    let result =
+        match ImageBuffer::<Rgba<u8>, _>::from_raw(dst_width as u32, dst_height as u32, dst_data) {
+            Some(r) => r,
+            None => {
+                println!("Failed to create image from buffer");
+                return;
+            }
+        };
 
     let result_img = DynamicImage::ImageRgba8(result);
     let output_path = "output.jpg";
