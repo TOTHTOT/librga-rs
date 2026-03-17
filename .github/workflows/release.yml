@@ -1,0 +1,35 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  release:
+    name: Build & Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build release
+        run: |
+          cargo build --release --examples
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            target/release/test_runner
+            target/release/examples/basic_resize
+            target/release/examples/format_convert
+            target/release/examples/blend_demo
+            target/release/examples/benchmark
+            target/release/examples/image_resize
+            target/release/examples/image_rotate
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
