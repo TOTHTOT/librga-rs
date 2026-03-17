@@ -41,6 +41,10 @@ path = "examples/benchmark.rs"
 name = "image_resize"
 path = "examples/image_resize.rs"
 
+[[example]]
+name = "image_rotate"
+path = "examples/image_rotate.rs"
+
 [[bin]]
 name = "test_runner"
 path = "src/test_runner.rs"

@@ -38,6 +38,7 @@ cp target/${TARGET}/release/examples/format_convert ${DEPLOY_DIR}/ 2>/dev/null |
 cp target/${TARGET}/release/examples/blend_demo ${DEPLOY_DIR}/ 2>/dev/null || true
 cp target/${TARGET}/release/examples/benchmark ${DEPLOY_DIR}/ 2>/dev/null || true
 cp target/${TARGET}/release/examples/image_resize ${DEPLOY_DIR}/ 2>/dev/null || true
+cp target/${TARGET}/release/examples/image_rotate ${DEPLOY_DIR}/ 2>/dev/null || true
 cp examples/test.jpg ${DEPLOY_DIR}/ 2>/dev/null || true
 
 # Copy library
