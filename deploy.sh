@@ -37,6 +37,8 @@ cp target/${TARGET}/release/examples/basic_resize ${DEPLOY_DIR}/ 2>/dev/null || 
 cp target/${TARGET}/release/examples/format_convert ${DEPLOY_DIR}/ 2>/dev/null || true
 cp target/${TARGET}/release/examples/blend_demo ${DEPLOY_DIR}/ 2>/dev/null || true
 cp target/${TARGET}/release/examples/benchmark ${DEPLOY_DIR}/ 2>/dev/null || true
+cp target/${TARGET}/release/examples/image_resize ${DEPLOY_DIR}/ 2>/dev/null || true
+cp examples/test.jpg ${DEPLOY_DIR}/ 2>/dev/null || true
 
 # Copy library
 cp libs/Linux/gcc-aarch64/librga.so ${DEPLOY_DIR}/

@@ -118,6 +118,46 @@ impl RgaBuffer {
         })
     }
 
+    /// Create buffer from Vec (takes ownership)
+    ///
+    /// This is safe because we own the data and ensure it's valid during the buffer's lifetime.
+    /// The Vec is pinned and cannot be accessed while the buffer is alive.
+    pub fn from_vec(
+        data: Vec<u8>,
+        width: i32,
+        height: i32,
+        format: PixelFormat,
+    ) -> RgaResult<(Self, Vec<u8>)> {
+        let mut data = data;
+        let addr = data.as_mut_ptr() as *mut c_void;
+
+        let buffer = unsafe {
+            Self::from_virtual_addr_unchecked(addr, width, height, format)?
+        };
+
+        Ok((buffer, data))
+    }
+
+    /// Create mutable buffer from Vec (for output)
+    ///
+    /// This is safe because we own the data and ensure it's valid during the buffer's lifetime.
+    /// The Vec is pinned and cannot be accessed while the buffer is alive.
+    pub fn from_vec_mut(
+        data: Vec<u8>,
+        width: i32,
+        height: i32,
+        format: PixelFormat,
+    ) -> RgaResult<(Self, Vec<u8>)> {
+        let mut data = data;
+        let addr = data.as_mut_ptr() as *mut c_void;
+
+        let buffer = unsafe {
+            Self::from_virtual_addr_unchecked(addr, width, height, format)?
+        };
+
+        Ok((buffer, data))
+    }
+
     /// Import buffer from physical address
     ///
     /// # Safety
@@ -420,5 +460,19 @@ impl RgaBufferBuilder {
             hstride: self.hstride.unwrap_or(self.height),
             owns_handle: true,
         })
+    }
+
+    /// Build from Vec (safe wrapper)
+    ///
+    /// This is safe because we own the data and ensure it's valid during the buffer's lifetime.
+    pub fn build_from_vec(self, data: Vec<u8>) -> RgaResult<(RgaBuffer, Vec<u8>)> {
+        let mut data = data;
+        let addr = data.as_mut_ptr() as *mut c_void;
+
+        let buffer = unsafe {
+            self.build_from_virtual_addr(addr)?
+        };
+
+        Ok((buffer, data))
     }
 }

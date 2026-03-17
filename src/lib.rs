@@ -45,6 +45,7 @@ pub mod query;
 
 // Public re-exports for convenience
 pub use buffer::RgaBuffer;
+pub use buffer::RgaBufferBuilder;
 pub use error::{RgaError, RgaResult};
 pub use format::PixelFormat;
 pub use rect::Rect;
