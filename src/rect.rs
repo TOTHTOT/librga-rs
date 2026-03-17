@@ -1,4 +1,4 @@
- //! Rectangle types for RGA operations
+//! Rectangle types for RGA operations
 
 /// Rectangle definition for RGA operations
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]

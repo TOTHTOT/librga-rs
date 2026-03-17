@@ -2,9 +2,7 @@
 //!
 //! This example demonstrates basic image resizing using the RGA hardware.
 
-use librga::{
-    query, RgaBuffer, PixelFormat,
-};
+use librga::{query, PixelFormat};
 
 fn main() -> anyhow::Result<()> {
     println!("=== librga Basic Resize Example ===\n");
@@ -50,7 +48,9 @@ fn main() -> anyhow::Result<()> {
     println!("  - ResizeOptions::default() - Automatic scaling");
     println!("  - ResizeOptions::with_scale(0.5, 0.5) - Downscale by 2x");
     println!("  - ResizeOptions::with_scale(2.0, 2.0) - Upscale by 2x");
-    println!("  - ResizeOptions::with_interpolation(InterpMode::Linear) - Use linear interpolation");
+    println!(
+        "  - ResizeOptions::with_interpolation(InterpMode::Linear) - Use linear interpolation"
+    );
     println!();
 
     Ok(())

@@ -10,8 +10,10 @@ use crate::{
 /// Color space conversion modes
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[repr(i32)]
+#[derive(Default)]
 pub enum ColorSpaceMode {
     /// Default color space
+    #[default]
     Default = 0,
     /// YUV to RGB: BT.601 limited range
     YuvToRgbBt601Limit = 1,
@@ -25,12 +27,6 @@ pub enum ColorSpaceMode {
     RgbToYuvBt601Limit = 2 << 2,
     /// RGB to YUV: BT.709 limited range
     RgbToYuvBt709Limit = 3 << 2,
-}
-
-impl Default for ColorSpaceMode {
-    fn default() -> Self {
-        Self::Default
-    }
 }
 
 /// Options for color conversion

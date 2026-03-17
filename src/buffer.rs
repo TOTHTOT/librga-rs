@@ -1,12 +1,12 @@
- //! RGA buffer management
+//! RGA buffer management
 
 use std::ffi::c_void;
 use std::ptr::null_mut;
 
 use crate::{
     error::{RgaError, RgaResult},
-    format::PixelFormat,
     ffi::*,
+    format::PixelFormat,
 };
 
 /// Handle to an imported RGA buffer
@@ -257,7 +257,10 @@ impl RgaBuffer {
     }
 
     /// Wrap with color space mode
-    pub fn wrap_with_color_space(&self, color_space: crate::ops::color::ColorSpaceMode) -> rga_buffer_t {
+    pub fn wrap_with_color_space(
+        &self,
+        color_space: crate::ops::color::ColorSpaceMode,
+    ) -> rga_buffer_t {
         let mut buf = self.wrap();
         buf.color_space_mode = color_space as i32;
         buf

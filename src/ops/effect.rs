@@ -10,10 +10,9 @@ use crate::{
 
 /// Apply mosaic effect to a region
 /// Note: immosaic function may not be available in all versions
-pub fn mosaic(dst: &mut RgaBuffer, rect: Rect, mode: MosaicMode, sync: bool) -> RgaResult<()> {
+pub fn mosaic(dst: &mut RgaBuffer, rect: Rect, _mode: MosaicMode, _sync: bool) -> RgaResult<()> {
     // Use improcess instead with mosaic flag
-    let usage = crate::usage::Usage::from_bits(IM_USAGE_IM_MOSAIC as u32)
-        .unwrap_or(crate::usage::Usage::empty());
+    let usage = crate::usage::Usage::from_bits(IM_USAGE_IM_MOSAIC as u32).unwrap_or_default();
 
     let status = unsafe {
         improcess(
@@ -83,14 +82,7 @@ pub fn gaussian_blur(
 
 /// Apply palette mapping (LUT transformation)
 pub fn palette(src: &RgaBuffer, dst: &mut RgaBuffer, lut: &RgaBuffer, sync: bool) -> RgaResult<()> {
-    let status = unsafe {
-        impalette_t(
-            src.wrap(),
-            dst.wrap(),
-            lut.wrap(),
-            sync as i32,
-        )
-    };
+    let status = unsafe { impalette_t(src.wrap(), dst.wrap(), lut.wrap(), sync as i32) };
 
     if status == IM_STATUS_IM_STATUS_SUCCESS {
         Ok(())

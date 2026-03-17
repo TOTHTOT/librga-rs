@@ -9,14 +9,7 @@ use crate::{
 
 /// Fill rectangle with solid color
 pub fn fill(dst: &mut RgaBuffer, rect: Rect, color: u32, sync: bool) -> RgaResult<()> {
-    let status = unsafe {
-        imfill_t(
-            dst.wrap(),
-            rect.into(),
-            color as i32,
-            sync as i32,
-        )
-    };
+    let status = unsafe { imfill_t(dst.wrap(), rect.into(), color as i32, sync as i32) };
 
     if status == IM_STATUS_IM_STATUS_SUCCESS {
         Ok(())
@@ -30,7 +23,7 @@ pub fn rectangle(
     dst: &mut RgaBuffer,
     rect: Rect,
     color: u32,
-    thickness: i32,
+    _thickness: i32,
     sync: bool,
 ) -> RgaResult<()> {
     // Use fill with the rectangle

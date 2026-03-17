@@ -52,9 +52,7 @@ pub fn query_string(info: QueryInfo) -> &'static str {
         if ptr.is_null() {
             return "";
         }
-        CStr::from_ptr(ptr)
-            .to_str()
-            .unwrap_or("<invalid UTF-8>")
+        CStr::from_ptr(ptr).to_str().unwrap_or("<invalid UTF-8>")
     }
 }
 
@@ -121,9 +119,7 @@ pub fn error_string(status: IM_STATUS) -> &'static str {
         if ptr.is_null() {
             return "unknown error";
         }
-        CStr::from_ptr(ptr)
-            .to_str()
-            .unwrap_or("<invalid UTF-8>")
+        CStr::from_ptr(ptr).to_str().unwrap_or("<invalid UTF-8>")
     }
 }
 

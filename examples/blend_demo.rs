@@ -2,10 +2,6 @@
 //!
 //! This example demonstrates alpha blending operations.
 
-use librga::{
-    blend, composite, BlendMode, OpOptions, RgaBuffer,
-};
-
 fn main() -> anyhow::Result<()> {
     println!("=== librga Alpha Blending Example ===\n");
 
@@ -25,7 +21,9 @@ fn main() -> anyhow::Result<()> {
     println!();
 
     println!("4. Composite two images to third destination:");
-    println!("   composite(&image_a, &image_b, &mut output, BlendMode::SrcOver, OpOptions::default())?;");
+    println!(
+        "   composite(&image_a, &image_b, &mut output, BlendMode::SrcOver, OpOptions::default())?;"
+    );
     println!();
 
     // Blend mode descriptions

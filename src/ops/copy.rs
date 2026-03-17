@@ -13,13 +13,7 @@ use crate::{
 /// * `dst` - Destination buffer
 /// * `sync` - Whether to wait for completion
 pub fn copy(src: &RgaBuffer, dst: &mut RgaBuffer, sync: bool) -> RgaResult<()> {
-    let status = unsafe {
-        imcopy_t(
-            src.wrap(),
-            dst.wrap(),
-            sync as i32,
-        )
-    };
+    let status = unsafe { imcopy_t(src.wrap(), dst.wrap(), sync as i32) };
 
     if status == IM_STATUS_IM_STATUS_SUCCESS {
         Ok(())

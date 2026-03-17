@@ -3,10 +3,11 @@
 //! This example benchmarks various RGA operations and reports timing.
 
 use librga::{
-    query, RgaBuffer, PixelFormat,
-    copy, resize, ops::resize::ResizeOptions,
-    rotate, flip,
-    usage::{Rotation, FlipMode},
+    copy, flip,
+    ops::resize::ResizeOptions,
+    query, resize, rotate,
+    usage::{FlipMode, Rotation},
+    PixelFormat, RgaBuffer,
 };
 use std::ffi::c_void;
 use std::time::Instant;
@@ -41,18 +42,21 @@ fn main() {
     // Create RGA buffers
     let src = unsafe {
         RgaBuffer::from_virtual_addr_unchecked(src_ptr, width, height, PixelFormat::Rgba8888)
-    }.expect("Failed to create src buffer");
+    }
+    .expect("Failed to create src buffer");
 
     let mut dst = unsafe {
         RgaBuffer::from_virtual_addr_unchecked(dst_ptr, width, height, PixelFormat::Rgba8888)
-    }.expect("Failed to create dst buffer");
+    }
+    .expect("Failed to create dst buffer");
 
     // Small buffer for resize
     let small_size = (1280 * 720 * 4) as usize;
     let (dst2_ptr, _) = alloc_buffer(small_size).expect("Failed to allocate dst2 buffer");
     let mut dst2 = unsafe {
         RgaBuffer::from_virtual_addr_unchecked(dst2_ptr, 1280, 720, PixelFormat::Rgba8888)
-    }.expect("Failed to create dst2 buffer");
+    }
+    .expect("Failed to create dst2 buffer");
 
     let iterations = 100;
 
@@ -63,16 +67,27 @@ fn main() {
         copy(&src, &mut dst, true).expect("copy failed");
     }
     let copy_time = start.elapsed();
-    println!("  Total: {:?} ({:.3}ms per operation)", copy_time, copy_time.as_millis() as f64 / iterations as f64);
+    println!(
+        "  Total: {:?} ({:.3}ms per operation)",
+        copy_time,
+        copy_time.as_millis() as f64 / iterations as f64
+    );
 
     // Benchmark resize
-    println!("\nBenchmarking resize 1920x1080 -> 1280x720 ({} iterations)...", iterations);
+    println!(
+        "\nBenchmarking resize 1920x1080 -> 1280x720 ({} iterations)...",
+        iterations
+    );
     let start = Instant::now();
     for _ in 0..iterations {
         resize(&src, &mut dst2, ResizeOptions::default()).expect("resize failed");
     }
     let resize_time = start.elapsed();
-    println!("  Total: {:?} ({:.3}ms per operation)", resize_time, resize_time.as_millis() as f64 / iterations as f64);
+    println!(
+        "  Total: {:?} ({:.3}ms per operation)",
+        resize_time,
+        resize_time.as_millis() as f64 / iterations as f64
+    );
 
     // Benchmark rotate
     println!("\nBenchmarking rotate 90 ({} iterations)...", iterations);
@@ -81,19 +96,33 @@ fn main() {
         rotate(&src, &mut dst, Rotation::Rot90, true).expect("rotate failed");
     }
     let rotate_time = start.elapsed();
-    println!("  Total: {:?} ({:.3}ms per operation)", rotate_time, rotate_time.as_millis() as f64 / iterations as f64);
+    println!(
+        "  Total: {:?} ({:.3}ms per operation)",
+        rotate_time,
+        rotate_time.as_millis() as f64 / iterations as f64
+    );
 
     // Benchmark flip
-    println!("\nBenchmarking flip horizontal ({} iterations)...", iterations);
+    println!(
+        "\nBenchmarking flip horizontal ({} iterations)...",
+        iterations
+    );
     let start = Instant::now();
     for _ in 0..iterations {
         flip(&src, &mut dst, FlipMode::Horizontal, true).expect("flip failed");
     }
     let flip_time = start.elapsed();
-    println!("  Total: {:?} ({:.3}ms per operation)", flip_time, flip_time.as_millis() as f64 / iterations as f64);
+    println!(
+        "  Total: {:?} ({:.3}ms per operation)",
+        flip_time,
+        flip_time.as_millis() as f64 / iterations as f64
+    );
 
     // Combined operation benchmark
-    println!("\nBenchmarking combined operations (copy -> resize -> rotate) ({} iterations)...", iterations);
+    println!(
+        "\nBenchmarking combined operations (copy -> resize -> rotate) ({} iterations)...",
+        iterations
+    );
     let start = Instant::now();
     for _ in 0..iterations {
         copy(&src, &mut dst, true).expect("copy failed");
@@ -101,7 +130,11 @@ fn main() {
         rotate(&src, &mut dst, Rotation::Rot90, true).expect("rotate failed");
     }
     let combined_time = start.elapsed();
-    println!("  Total: {:?} ({:.3}ms per iteration)", combined_time, combined_time.as_millis() as f64 / iterations as f64);
+    println!(
+        "  Total: {:?} ({:.3}ms per iteration)",
+        combined_time,
+        combined_time.as_millis() as f64 / iterations as f64
+    );
 
     println!("\n=== Benchmark Complete ===");
 

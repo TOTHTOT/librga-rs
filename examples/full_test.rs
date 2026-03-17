@@ -1,13 +1,11 @@
 //! Full test for librga operations
 
 use librga::{
-    query, RgaBuffer, PixelFormat, Rect,
-    copy, resize,
-    rotate, flip,
-    blend,
-    fill,
+    copy, fill, flip,
     ops::resize::ResizeOptions,
-    usage::{Rotation, FlipMode, BlendMode},
+    query, resize, rotate,
+    usage::{FlipMode, Rotation},
+    PixelFormat, Rect, RgaBuffer,
 };
 use std::ffi::c_void;
 
@@ -31,7 +29,11 @@ fn test_copy(src: &RgaBuffer, dst: &mut RgaBuffer) {
 
 fn test_resize(src: &RgaBuffer, dst: &mut RgaBuffer) {
     print!("resize(1920x1080 -> 1280x720)... ");
-    match resize(src, dst, ResizeOptions::with_scale(1280.0/1920.0, 720.0/1080.0)) {
+    match resize(
+        src,
+        dst,
+        ResizeOptions::with_scale(1280.0 / 1920.0, 720.0 / 1080.0),
+    ) {
         Ok(_) => println!("OK"),
         Err(e) => println!("FAILED: {:?}", e),
     }
@@ -105,7 +107,10 @@ fn main() {
         Ok(b) => b,
         Err(e) => {
             println!("Failed to create src RgaBuffer: {:?}", e);
-            unsafe { libc::free(src_ptr); libc::free(dst_ptr); }
+            unsafe {
+                libc::free(src_ptr);
+                libc::free(dst_ptr);
+            }
             return;
         }
     };
@@ -116,7 +121,10 @@ fn main() {
         Ok(b) => b,
         Err(e) => {
             println!("Failed to create dst RgaBuffer: {:?}", e);
-            unsafe { libc::free(src_ptr); libc::free(dst_ptr); }
+            unsafe {
+                libc::free(src_ptr);
+                libc::free(dst_ptr);
+            }
             return;
         }
     };
@@ -134,7 +142,10 @@ fn main() {
         Some(v) => v,
         None => {
             println!("Failed to allocate dst2 buffer");
-            unsafe { libc::free(src_ptr); libc::free(dst_ptr); }
+            unsafe {
+                libc::free(src_ptr);
+                libc::free(dst_ptr);
+            }
             return;
         }
     };
@@ -145,7 +156,11 @@ fn main() {
         Ok(b) => b,
         Err(e) => {
             println!("Failed to create dst2 RgaBuffer: {:?}", e);
-            unsafe { libc::free(src_ptr); libc::free(dst_ptr); libc::free(dst2_ptr); }
+            unsafe {
+                libc::free(src_ptr);
+                libc::free(dst_ptr);
+                libc::free(dst2_ptr);
+            }
             return;
         }
     };

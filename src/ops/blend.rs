@@ -9,12 +9,7 @@ use crate::{
 
 /// Blend foreground image onto background
 /// Note: imblend_t takes srcA, srcB (foreground), dst
-pub fn blend(
-    fg: &RgaBuffer,
-    bg: &mut RgaBuffer,
-    mode: BlendMode,
-    sync: bool,
-) -> RgaResult<()> {
+pub fn blend(fg: &RgaBuffer, bg: &mut RgaBuffer, mode: BlendMode, sync: bool) -> RgaResult<()> {
     // imblend_t takes: srcA, srcB, dst, mode, sync
     // For single-image blend, srcA can be zeroed
     let src_a = unsafe { std::mem::zeroed() };
@@ -55,15 +50,7 @@ pub fn color_key(
         IM_USAGE_IM_ALPHA_COLORKEY_NORMAL
     };
 
-    let status = unsafe {
-        imcolorkey_t(
-            src.wrap(),
-            dst.wrap(),
-            range,
-            mode as i32,
-            sync as i32,
-        )
-    };
+    let status = unsafe { imcolorkey_t(src.wrap(), dst.wrap(), range, mode as i32, sync as i32) };
 
     if status == IM_STATUS_IM_STATUS_SUCCESS {
         Ok(())

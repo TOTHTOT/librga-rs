@@ -3,8 +3,10 @@
 /// Pixel formats supported by RGA
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[repr(i32)]
+#[derive(Default)]
 pub enum PixelFormat {
     /// RGBA 8888 (32-bit, 8 bits per channel)
+    #[default]
     Rgba8888 = 0x0, // RK_FORMAT_RGBA_8888
 
     /// RGBX 8888 (32-bit, no alpha)
@@ -225,11 +227,5 @@ impl PixelFormat {
                 | Self::Argb8888
                 | Self::Abgr8888
         )
-    }
-}
-
-impl Default for PixelFormat {
-    fn default() -> Self {
-        Self::Rgba8888
     }
 }

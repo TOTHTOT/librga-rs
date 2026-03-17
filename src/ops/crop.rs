@@ -9,14 +9,7 @@ use crate::{
 
 /// Crop image region
 pub fn crop(src: &RgaBuffer, dst: &mut RgaBuffer, rect: Rect, sync: bool) -> RgaResult<()> {
-    let status = unsafe {
-        imcrop_t(
-            src.wrap(),
-            dst.wrap(),
-            rect.into(),
-            sync as i32,
-        )
-    };
+    let status = unsafe { imcrop_t(src.wrap(), dst.wrap(), rect.into(), sync as i32) };
 
     if status == IM_STATUS_IM_STATUS_SUCCESS {
         Ok(())
@@ -33,15 +26,7 @@ pub fn translate(
     y: i32,
     sync: bool,
 ) -> RgaResult<()> {
-    let status = unsafe {
-        imtranslate_t(
-            src.wrap(),
-            dst.wrap(),
-            x,
-            y,
-            sync as i32,
-        )
-    };
+    let status = unsafe { imtranslate_t(src.wrap(), dst.wrap(), x, y, sync as i32) };
 
     if status == IM_STATUS_IM_STATUS_SUCCESS {
         Ok(())

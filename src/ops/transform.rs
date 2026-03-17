@@ -8,7 +8,12 @@ use crate::{
 };
 
 /// Rotate image
-pub fn rotate(src: &RgaBuffer, dst: &mut RgaBuffer, rotation: Rotation, sync: bool) -> RgaResult<()> {
+pub fn rotate(
+    src: &RgaBuffer,
+    dst: &mut RgaBuffer,
+    rotation: Rotation,
+    sync: bool,
+) -> RgaResult<()> {
     let status = unsafe {
         imrotate_t(
             src.wrap(),

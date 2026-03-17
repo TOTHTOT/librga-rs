@@ -2,9 +2,7 @@
 //!
 //! This example demonstrates color format conversion using RGA hardware.
 
-use librga::{
-    query, convert_color, ColorSpaceMode, OpOptions, PixelFormat, RgaBuffer,
-};
+use librga::query;
 
 fn main() -> anyhow::Result<()> {
     println!("=== librga Format Conversion Example ===\n");

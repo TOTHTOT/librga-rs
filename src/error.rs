@@ -53,7 +53,7 @@ impl RgaError {
             IM_STATUS_IM_STATUS_ERROR_VERSION => Self::VersionError,
             IM_STATUS_IM_STATUS_NO_SESSION => Self::NoSession,
             IM_STATUS_IM_STATUS_FAILED => Self::Failed,
-            _ => Self::Unknown(status as i32),
+            _ => Self::Unknown(status),
         }
     }
 

@@ -155,9 +155,10 @@ impl FlipMode {
 }
 
 /// Blend modes (Porter-Duff)
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub enum BlendMode {
     /// Source over destination (default)
+    #[default]
     SrcOver,
     /// Source only
     Src,
@@ -200,18 +201,13 @@ impl BlendMode {
     }
 }
 
-impl Default for BlendMode {
-    fn default() -> Self {
-        Self::SrcOver
-    }
-}
-
 /// Mosaic block sizes
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub enum MosaicMode {
     /// 8x8 pixel blocks
     Block8 = 0,
     /// 16x16 pixel blocks
+    #[default]
     Block16 = 1,
     /// 32x32 pixel blocks
     Block32 = 2,
@@ -234,16 +230,11 @@ impl MosaicMode {
     }
 }
 
-impl Default for MosaicMode {
-    fn default() -> Self {
-        Self::Block16
-    }
-}
-
 /// Interpolation modes for scaling
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub enum InterpMode {
     /// Default interpolation (usually linear)
+    #[default]
     Default = 0,
     /// Linear interpolation
     Linear = 1,
@@ -253,16 +244,11 @@ pub enum InterpMode {
     Average = 3,
 }
 
-impl Default for InterpMode {
-    fn default() -> Self {
-        Self::Default
-    }
-}
-
 /// Color space conversion modes
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub enum ColorSpaceMode {
     /// Default color space
+    #[default]
     Default = 0,
     /// YUV to RGB: BT.601 limited range
     YuvToRgbBt601Limit = 1,
@@ -276,12 +262,6 @@ pub enum ColorSpaceMode {
     RgbToYuvBt601Limit = 2 << 2,
     /// RGB to YUV: BT.709 limited range
     RgbToYuvBt709Limit = 3 << 2,
-}
-
-impl Default for ColorSpaceMode {
-    fn default() -> Self {
-        Self::Default
-    }
 }
 
 /// ROP (Raster Operation) codes

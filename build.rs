@@ -14,7 +14,10 @@ fn main() {
             "aarch64-unknown-linux-gnu" => "libs/Linux/gcc-aarch64",
             "arm-unknown-linux-gnueabihf" => "libs/Linux/gcc-armhf",
             _ => {
-                eprintln!("Warning: Unknown Linux target {}, using aarch64 library", target);
+                eprintln!(
+                    "Warning: Unknown Linux target {}, using aarch64 library",
+                    target
+                );
                 "libs/Linux/gcc-aarch64"
             }
         };
@@ -24,7 +27,10 @@ fn main() {
     } else {
         // On non-Linux targets (macOS for development), skip library linking
         // bindgen will still generate the bindings
-        println!("cargo:warning=Building on non-Linux target '{}'. RGA library linking skipped.", target);
+        println!(
+            "cargo:warning=Building on non-Linux target '{}'. RGA library linking skipped.",
+            target
+        );
     }
 
     // The bindgen::Builder is the main entry point to bindgen
