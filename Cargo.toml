@@ -2,7 +2,7 @@
 name = "librga"
 version = "0.1.0"
 edition = "2021"
-authors = ["Your Name <you@example.com>"]
+authors = ["TOTHTOT <mczyfs@gmail.com>"]
 description = "Rust FFI bindings for Rockchip RGA (2D Graphics Accelerator)"
 license = "Apache-2.0"
 repository = "https://github.com/yourusername/librga-rs"
